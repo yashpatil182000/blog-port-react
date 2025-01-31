@@ -1,9 +1,9 @@
+import Home from "./Pages/Home";
+
 function App() {
   return (
     <>
-      <p className="text-3xl underline bg-primaryBG">
-        Blog Port | ReactJS | Firebase
-      </p>
+      <Home />
     </>
   );
 }

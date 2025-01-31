@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button-three {
+  --button-color: #7c4ee4;
+  overflow: hidden;
+}
+
+.button-three .hamburger {
+  transition: translate 1s, rotate 1s;
+}
+
+.button-three[aria-expanded="true"] .hamburger {
+  translate: 3px -3px;
+  rotate: 0.125turn;
+}
+
+.button-three .line {
+  transition: 0.5s;
+  stroke-dasharray: 60 31 60 300;
+}
+
+.button-three[aria-expanded="true"] .line {
+  stroke-dasharray: 60 105 60 300;
+  stroke-dashoffset: -90;
+}
