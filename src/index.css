@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #e2e2e2;
+}
+
 .button-three {
   --button-color: #7c4ee4;
   overflow: hidden;
