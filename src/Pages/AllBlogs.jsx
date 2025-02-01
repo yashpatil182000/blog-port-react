@@ -55,16 +55,14 @@ function AllBlogs() {
       <div className="flex-wrap justify-center flex px-5 md:px-16 gap-5">
         {Blogs.map((blog, index) => {
           return (
-            <>
-              <BlogCard
-                key={index}
-                image={blog.image}
-                tag={blog.tag}
-                time={blog.time}
-                title={blog.title}
-                description={blog.description}
-              />
-            </>
+            <BlogCard
+              key={index}
+              image={blog.image}
+              tag={blog.tag}
+              time={blog.time}
+              title={blog.title}
+              description={blog.description}
+            />
           );
         })}
       </div>
