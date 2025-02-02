@@ -11,13 +11,20 @@ const Navbar = () => {
 
   return (
     <nav className="flex px-6 md:px-16 py-3 justify-between items-center shadow-md bg-white">
-      <div className="flex gap-2 justify-center items-center">
-        <img src={Logo} alt="Logo" className="h-12" />
-        <p className="text-2xl md:text-3xl font-bold text-primary">BLOG PORT</p>
-      </div>
+      <Link to={""}>
+        <div className="flex gap-2 justify-center items-center">
+          <img src={Logo} alt="Logo" className="h-12" />
+          <p className="text-2xl md:text-3xl font-bold text-primary">
+            BLOG PORT
+          </p>
+        </div>
+      </Link>
 
       <div className="hidden md:flex gap-5 items-center">
         <ul className="flex gap-5">
+          <Link to={""}>
+            <li className="cursor-pointer text-md  hover:text-primary">Home</li>
+          </Link>
           <Link to={"/all-blogs"}>
             <li className="cursor-pointer text-md  hover:text-primary">
               Blogs
@@ -60,17 +67,46 @@ const Navbar = () => {
 
       <div
         id="mobile-menu"
-        className={`absolute top-16 left-0 w-full bg-white shadow-md p-5 flex flex-col gap-4 items-center ${
+        className={`absolute z-10 top-16 left-0 w-full bg-white shadow-md p-5 flex flex-col gap-4 items-center ${
           isMenuOpen ? "block" : "hidden"
         } md:hidden`}
       >
         <ul className="flex flex-col gap-4 text-lg">
-          <li className="cursor-pointer  hover:text-primary">Blogs</li>
-          <li className="cursor-pointer  hover:text-primary">About</li>
+          <Link
+            to={""}
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            <li className="cursor-pointer  hover:text-primary">Home</li>
+          </Link>
+          <Link
+            to={"/all-blogs"}
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            <li className="cursor-pointer  hover:text-primary">Blogs</li>
+          </Link>
+          <Link
+            to={"/about"}
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            <li className="cursor-pointer  hover:text-primary">About</li>
+          </Link>
         </ul>
-        <button className="outline-none bg-primary text-white px-10 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
-          Login
-        </button>
+        <Link
+          to={"/login"}
+          onClick={() => {
+            setIsMenuOpen(false);
+          }}
+        >
+          <button className="outline-none bg-primary text-white px-10 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+            Login
+          </button>
+        </Link>
       </div>
     </nav>
   );
