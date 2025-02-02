@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "@material-tailwind/react";
 import { TbLogin2 } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -35,9 +36,11 @@ function Login() {
           <div className="justify-center flex my-5">
             <p className="">
               Don't have an account?
-              <span className="ms-1 cursor-pointer text-blue-900 underline font-semibold">
-                Register
-              </span>
+              <Link to={"/register"}>
+                <span className="ms-1 cursor-pointer text-blue-900 underline font-semibold">
+                  Register
+                </span>
+              </Link>
             </p>
           </div>
         </div>

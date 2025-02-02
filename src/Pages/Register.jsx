@@ -1,6 +1,7 @@
 import React from "react";
 import { GrDocumentUser } from "react-icons/gr";
 import { Input } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 function Register() {
   return (
@@ -50,9 +51,11 @@ function Register() {
             <div className="justify-center flex my-5">
               <p className="">
                 Already have an account?
-                <span className="ms-1 cursor-pointer text-blue-900 underline font-semibold">
-                  Log In
-                </span>
+                <Link to={"/login"}>
+                  <span className="ms-1 cursor-pointer text-blue-900 underline font-semibold">
+                    Log In
+                  </span>
+                </Link>
               </p>
             </div>
           </div>

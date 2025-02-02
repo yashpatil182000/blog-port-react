@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
 
 const Navbar = () => {
@@ -17,12 +18,22 @@ const Navbar = () => {
 
       <div className="hidden md:flex gap-5 items-center">
         <ul className="flex gap-5">
-          <li className="cursor-pointer text-md  hover:text-primary">Blogs</li>
-          <li className="cursor-pointer text-md  hover:text-primary">About</li>
+          <Link to={"/all-blogs"}>
+            <li className="cursor-pointer text-md  hover:text-primary">
+              Blogs
+            </li>
+          </Link>
+          <Link to={"/about"}>
+            <li className="cursor-pointer text-md  hover:text-primary">
+              About
+            </li>
+          </Link>
         </ul>
-        <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
-          Login
-        </button>
+        <Link to={"/login"}>
+          <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+            Login
+          </button>
+        </Link>
       </div>
 
       <button

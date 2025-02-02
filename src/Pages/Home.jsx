@@ -8,8 +8,7 @@ import Register from "./Register";
 function Home() {
   return (
     <>
-      <Navbar />
-      <AllBlogs />
+      <p className="text-4xl text-center">Home Page</p>
     </>
   );
 }
