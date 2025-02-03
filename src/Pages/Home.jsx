@@ -7,6 +7,7 @@ import AiImg from "../assets/ai.jpg";
 import WomensCricketImg from "../assets/womens-cricket.png";
 import BudgetImg from "../assets/budget.png";
 import { Link } from "react-router-dom";
+import Navbar from "../Components/Navbar.jsx";
 
 function Home() {
   var settings = {
@@ -21,6 +22,7 @@ function Home() {
   };
   return (
     <>
+      <Navbar />
       <div className="px-8 md:px-12 py-5 bg-[url('src/assets/hero-bg.png')]  bg-cover">
         <div className="text-center pb-10">
           <p className="text-xl font-bold text-white ">Featured Blogs </p>

@@ -1,6 +1,7 @@
 import React from "react";
 import BlogImg from "../assets/blog-img.png";
 import BlogCard from "../Components/BlogCard";
+import Navbar from "../Components/Navbar.jsx";
 
 function AllBlogs() {
   const Blogs = [
@@ -39,6 +40,8 @@ function AllBlogs() {
   ];
   return (
     <>
+      <Navbar />
+
       <div className="flex justify-center py-12 px-5 md:px-0">
         <div className="text-center md:w-[55%] flex flex-col gap-3">
           <p className="text-lg font-medium opacity-75">Our Blogs</p>

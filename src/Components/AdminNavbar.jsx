@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
 
-const Navbar = () => {
+const AdminNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleHamburger = () => {
@@ -22,23 +22,15 @@ const Navbar = () => {
 
       <div className="hidden md:flex gap-5 items-center">
         <ul className="flex gap-5">
-          <Link to={"/"}>
-            <li className="cursor-pointer text-md  hover:text-primary">Home</li>
-          </Link>
-          <Link to={"/all-blogs"}>
+          <Link to={"/add-blog"}>
             <li className="cursor-pointer text-md  hover:text-primary">
-              All Blogs
-            </li>
-          </Link>
-          <Link to={"/about"}>
-            <li className="cursor-pointer text-md  hover:text-primary">
-              About
+              Add Blog
             </li>
           </Link>
         </ul>
-        <Link to={"/login"}>
+        <Link to={"/"}>
           <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
-            Login
+            Log Out
           </button>
         </Link>
       </div>
@@ -73,38 +65,22 @@ const Navbar = () => {
       >
         <ul className="flex flex-col gap-4 text-lg">
           <Link
-            to={"/"}
+            to={"/add-blog"}
             onClick={() => {
               setIsMenuOpen(false);
             }}
           >
-            <li className="cursor-pointer  hover:text-primary">Home</li>
-          </Link>
-          <Link
-            to={"/all-blogs"}
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-          >
-            <li className="cursor-pointer  hover:text-primary">All Blogs</li>
-          </Link>
-          <Link
-            to={"/about"}
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-          >
-            <li className="cursor-pointer  hover:text-primary">About</li>
+            <li className="cursor-pointer  hover:text-primary">Add Blog</li>
           </Link>
         </ul>
         <Link
-          to={"/login"}
+          to={"/"}
           onClick={() => {
             setIsMenuOpen(false);
           }}
         >
           <button className="outline-none bg-primary text-white px-10 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
-            Login
+            Log Out
           </button>
         </Link>
       </div>
@@ -112,4 +88,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

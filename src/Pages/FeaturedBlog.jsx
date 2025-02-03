@@ -7,7 +7,7 @@ import FeaturedBlogComp from "../Components/FeaturedBlogComp";
 
 function FeaturedBlog() {
   const { id } = useParams();
-  const [featuredBlog, setFeaturedBlog] = useState([]);
+  const [featuredBlog, setFeaturedBlog] = useState();
   const featuredPosts = [
     {
       id: "001",
@@ -202,7 +202,7 @@ function FeaturedBlog() {
 
   return (
     <div>
-      {FeaturedBlog ? (
+      {featuredBlog ? (
         <FeaturedBlogComp
           title={featuredBlog.title}
           description={featuredBlog.description}
@@ -211,7 +211,9 @@ function FeaturedBlog() {
           image={featuredBlog.image}
         />
       ) : (
-        <div>BLog No Available</div>
+        <div className="text-center py-20 text-4xl font-semibold">
+          Blog is currently not available...!
+        </div>
       )}
     </div>
   );

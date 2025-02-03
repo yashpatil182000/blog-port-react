@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { TbLogin2 } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ setIsAdmin }) {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (username == "admin" && password == "admin") {
+      navigate("/admin-dashboard");
+    } else {
+      alert("Invalid username or password");
+    }
+  };
+
   return (
     <>
       <div className="flex justify-center bg-[url('./assets/hero-bg.png')] bg-cover h-screen">
@@ -19,17 +31,31 @@ function Login() {
             <p className="text-3xl font-semibold ">LOG IN </p>
           </div>
           <div className="mb-5">
-            <Input label="Email" placeholder="Enter Email Here" color="black" />
+            <Input
+              label="Email"
+              placeholder="Enter Email Here"
+              color="black"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
           </div>
           <div className="mb-5">
             <Input
+              type="password"
               label="Password"
               placeholder="Enter Password Here"
               color="black"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
           <div className="justify-center flex">
-            <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+            <button
+              className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"
+              onClick={handleLogin}
+            >
               Login
             </button>
           </div>
