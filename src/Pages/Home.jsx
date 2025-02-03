@@ -1,11 +1,12 @@
 import React from "react";
-import Featuredpost from "../Components/Featuredpost";
+import Featuredpost from "../Components/FeaturedBlogComp";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AiImg from "../assets/ai.jpg";
 import WomensCricketImg from "../assets/womens-cricket.png";
 import BudgetImg from "../assets/budget.png";
+import { Link } from "react-router-dom";
 
 function Home() {
   var settings = {
@@ -38,9 +39,11 @@ function Home() {
                   AI is reshaping the way we live, work, and interact. But what
                   exactly is AI, and why is it gaining so much attention?
                 </p>
-                <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-white">
-                  Read more
-                </p>
+                <Link to={`Featured-blog/001`}>
+                  <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-white">
+                    Read more
+                  </p>
+                </Link>
               </div>
               <div className="md:w-[50%] mt-8 md:mt-0">
                 <img src={AiImg} className="rounded-3xl" alt="" />
@@ -61,9 +64,11 @@ function Home() {
                   reducing the fiscal deficit, and addressing concerns of the
                   middle className with significant tax reforms and incentives.
                 </p>
-                <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-white">
-                  Read more
-                </p>
+                <Link to={`Featured-blog/002`}>
+                  <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-white">
+                    Read more
+                  </p>
+                </Link>
               </div>
               <div className="md:w-[50%] mt-8 md:mt-0">
                 <img src={BudgetImg} className="rounded-3xl" alt="" />
@@ -85,9 +90,11 @@ function Home() {
                   nine-wicket victory, with opener G Trisha playing a pivotal
                   role.
                 </p>
-                <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-white">
-                  Read more
-                </p>
+                <Link to={`Featured-blog/003`}>
+                  <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-white">
+                    Read more
+                  </p>
+                </Link>
               </div>
               <div className="md:w-[50%] mt-8 md:mt-0">
                 <img src={WomensCricketImg} className="rounded-3xl" alt="" />
