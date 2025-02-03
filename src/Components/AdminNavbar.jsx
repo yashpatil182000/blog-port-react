@@ -22,6 +22,11 @@ const AdminNavbar = () => {
 
       <div className="hidden md:flex gap-5 items-center">
         <ul className="flex gap-5">
+          <Link to={"/admin-dashboard"}>
+            <li className="cursor-pointer text-md  hover:text-primary">
+              Dashboard
+            </li>
+          </Link>
           <Link to={"/add-blog"}>
             <li className="cursor-pointer text-md  hover:text-primary">
               Add Blog
@@ -64,6 +69,11 @@ const AdminNavbar = () => {
         } md:hidden`}
       >
         <ul className="flex flex-col gap-4 text-lg">
+          <Link to={"/admin-dashboard"}>
+            <li className="cursor-pointer text-md  hover:text-primary">
+              Dashboard
+            </li>
+          </Link>
           <Link
             to={"/add-blog"}
             onClick={() => {
