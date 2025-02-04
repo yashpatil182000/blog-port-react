@@ -4,6 +4,7 @@ import AiImg from "../assets/ai.jpg";
 import WomensCricketImg from "../assets/womens-cricket.png";
 import BudgetImg from "../assets/budget.png";
 import FeaturedBlogComp from "../Components/FeaturedBlogComp";
+import Navbar from "../Components/Navbar";
 
 function FeaturedBlog() {
   const { id } = useParams();
@@ -202,6 +203,7 @@ function FeaturedBlog() {
 
   return (
     <div>
+      <Navbar />
       {featuredBlog ? (
         <FeaturedBlogComp
           title={featuredBlog.title}

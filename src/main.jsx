@@ -11,6 +11,7 @@ import About from "./Pages/About.jsx";
 import FeaturedBlog from "./Pages/FeaturedBlog.jsx";
 import AddBlog from "./Pages/AddBlog.jsx";
 import AdminDashBoard from "./Pages/AdminDashBoard.jsx";
+import Blog from "./Pages/Blog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,12 +20,13 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Home /> },
       { path: "/all-blogs", element: <AllBlogs /> },
-      { path: "/login", element: <Login   /> },
+      { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/about", element: <About /> },
       { path: `/featured-blog/:id`, element: <FeaturedBlog /> },
       { path: "/admin-dashboard", element: <AdminDashBoard /> },
       { path: "/add-blog", element: <AddBlog /> },
+      { path: `/blog/:id`, element: <Blog /> },
     ],
   },
 ]);

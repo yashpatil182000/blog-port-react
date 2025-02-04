@@ -3,14 +3,14 @@ import AdminNavbar from "../Components/AdminNavbar";
 import { Input, Textarea } from "@material-tailwind/react";
 
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import styles
+import "react-toastify/dist/ReactToastify.css";
 
 import { Client, Databases, ID, Storage } from "appwrite";
-import { RiInputField } from "react-icons/ri";
 
 function AddBlog() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
+  const [shortDescription, setShortDescription] = useState();
   const [tag, setTag] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -45,23 +45,22 @@ function AddBlog() {
         fileInput
       );
 
-      console.log("Image uploaded successfully:", uploadedFile);
+      // console.log("Image uploaded successfully:", uploadedFile);
 
       // Get image preview URL
       const fileUrl = storage.getFilePreview(
         `${import.meta.env.VITE_APPWRITE_BUCKET_ID}`,
         uploadedFile.$id
-      ); // Ensure `.href` is used to get the actual URL
+      );
 
       console.log("Generated Image URL:", fileUrl);
 
-      // Proceed with document creation only after image URL is available
       if (title && description && tag) {
         const uploadDoc = await databases.createDocument(
           `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
           `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
           ID.unique(),
-          { title, description, tag, imageURL: fileUrl } // Use `fileUrl` directly
+          { title, description, shortDescription, tag, imageURL: fileUrl }
         );
 
         console.log("Document uploaded successfully:", uploadDoc);
@@ -75,6 +74,7 @@ function AddBlog() {
 
         setTitle("");
         setDescription("");
+        setShortDescription("")
         setTag("");
         inputFileRef.current.value = "";
       } else {
@@ -120,6 +120,16 @@ function AddBlog() {
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-5">
+            <Textarea
+              className="h-56"
+              label="Short Description"
+              value={shortDescription}
+              onChange={(e) => {
+                setShortDescription(e.target.value);
               }}
             />
           </div>

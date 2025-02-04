@@ -1,43 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BlogImg from "../assets/blog-img.png";
 import BlogCard from "../Components/BlogCard";
 import Navbar from "../Components/Navbar.jsx";
+import { Client, Databases, Query } from "appwrite";
+import BeatLoader from "react-spinners/BeatLoader";
+import { Link } from "react-router-dom";
 
 function AllBlogs() {
-  const Blogs = [
-    {
-      title: "How to Be a Dancer in 2023 with proper skills?",
-      description:
-        "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. survival strategies to ensure proactive ",
-      tag: "Sports",
-      time: `${new Date().toLocaleDateString()}`,
-      image: BlogImg,
-    },
-    {
-      title: "How to Be a Dancer in 2023 with proper skills?",
-      description:
-        "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. survival strategies to ensure proactive ",
-      tag: "Sports",
-      time: `${Date.now()}`,
-      image: BlogImg,
-    },
-    {
-      title: "How to Be a Dancer in 2023 with proper skills?",
-      description:
-        "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. survival strategies to ensure proactive ",
-      tag: "Sports",
-      time: `${Date.now()}`,
-      image: BlogImg,
-    },
-    {
-      title: "How to Be a Dancer in 2023 with proper skills?",
-      description:
-        "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. survival strategies to ensure proactive ",
-      tag: "Sports",
-      time: `${Date.now()}`,
-      image: BlogImg,
-    },
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const client = new Client()
+    .setEndpoint(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`)
+    .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`);
+
+  const databases = new Databases(client);
+
+  const fetchBlogs = async () => {
+    try {
+      let responce = await databases.listDocuments(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`
+      );
+
+      if (responce && responce.documents) {
+        setBlogs(responce.documents);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("Fetching Error: ", error);
+    }
+  };
+  // console.log(blogs);
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -55,22 +53,31 @@ function AllBlogs() {
           </p>
         </div>
       </div>
-      <div className="flex-wrap justify-center flex px-5 md:px-16 gap-5">
-        {Blogs.map((blog, index) => {
-          return (
-            <BlogCard
-              key={index}
-              image={blog.image}
-              tag={blog.tag}
-              time={blog.time}
-              title={blog.title}
-              description={blog.description}
-            />
-          );
-        })}
+      {loading && (
+        <div className="flex flex-col items-center justify-center my-10">
+          <p className="text-xl font-semibold text-black">Loading Blogs</p>
+          <BeatLoader color="#7C4EE4" size={25} />
+        </div>
+      )}
+      <div className="w-full flex flex-wrap justify-center px-5 md:px-16 gap-5">
+        {blogs ? (
+          blogs.map((blog, index) => {
+            return (
+              <Link to={`/blog/${blog.$id}`} key={index}>
+                <BlogCard
+                  image={blog.imageURL}
+                  tag={blog.tag}
+                  title={blog.title}
+                  description={blog.shortDescription}
+                />
+              </Link>
+            );
+          })
+        ) : (
+          <p>No BLogs to show</p>
+        )}
       </div>
     </>
   );
 }
-
 export default AllBlogs;
