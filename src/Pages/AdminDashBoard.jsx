@@ -4,10 +4,12 @@ import { databases } from "../Appwrite/appwriteConfig";
 import BeatLoader from "react-spinners/BeatLoader";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 function AdminDashBoard() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchBlogs = async () => {
     try {
@@ -76,7 +78,12 @@ function AdminDashBoard() {
                     </p>
                   </div>
                   <div className="xl:w-[20%] flex justify-center my-5">
-                    <button className="flex items-center justify-center gap-1 bg-primary px-5 py-1 rounded-lg text-white font-semibold hover:text-black duration-200 me-5">
+                    <button
+                      className="flex items-center justify-center gap-1 bg-primary px-5 py-1 rounded-lg text-white font-semibold hover:text-black duration-200 me-5"
+                      onClick={() => {
+                        navigate(`/edit-blog/${blog.$id}`);
+                      }}
+                    >
                       <span>
                         <MdOutlineModeEdit size={20} />
                       </span>

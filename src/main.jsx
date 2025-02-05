@@ -12,6 +12,7 @@ import FeaturedBlog from "./Pages/FeaturedBlog.jsx";
 import AddBlog from "./Pages/AddBlog.jsx";
 import AdminDashBoard from "./Pages/AdminDashBoard.jsx";
 import Blog from "./Pages/Blog.jsx";
+import EditBlog from "./Pages/EditBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/admin-dashboard", element: <AdminDashBoard /> },
       { path: "/add-blog", element: <AddBlog /> },
       { path: `/blog/:id`, element: <Blog /> },
+      { path: `/edit-blog/:id`, element: <EditBlog /> },
     ],
   },
 ]);
