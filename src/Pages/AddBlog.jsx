@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import AdminNavbar from "../Components/AdminNavbar";
 import { Input, Textarea } from "@material-tailwind/react";
-
+import { storage, databases } from "../Appwrite/appwriteConfig";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { Client, Databases, ID, Storage } from "appwrite";
 
 function AddBlog() {
   const [title, setTitle] = useState();
@@ -15,13 +13,6 @@ function AddBlog() {
   const [loading, setLoading] = useState(false);
 
   const inputFileRef = useRef();
-
-  const client = new Client()
-    .setEndpoint(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`)
-    .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`);
-
-  const databases = new Databases(client);
-  const storage = new Storage(client);
 
   const handleAddBlog = async () => {
     const fileInput = document.getElementById("uploader").files[0];
@@ -53,7 +44,7 @@ function AddBlog() {
         uploadedFile.$id
       );
 
-      console.log("Generated Image URL:", fileUrl);
+      // console.log("Generated Image URL:", fileUrl);
 
       if (title && description && tag) {
         const uploadDoc = await databases.createDocument(
@@ -74,7 +65,7 @@ function AddBlog() {
 
         setTitle("");
         setDescription("");
-        setShortDescription("")
+        setShortDescription("");
         setTag("");
         inputFileRef.current.value = "";
       } else {

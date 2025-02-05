@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
-import { Client, Databases, Query } from "appwrite";
+import { Query } from "appwrite";
+import { databases } from "../Appwrite/appwriteConfig";
 
 import { useParams } from "react-router-dom";
 import BlogComponent from "../Components/BlogComponent";
@@ -11,12 +12,6 @@ function Blog() {
 
   const [blog, setBlog] = useState();
   const [loading, setLoading] = useState(true);
-
-  const client = new Client()
-    .setEndpoint(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`)
-    .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`);
-
-  const databases = new Databases(client);
 
   const fetchBlog = async () => {
     try {

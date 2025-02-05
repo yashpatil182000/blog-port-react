@@ -2,18 +2,13 @@ import React, { useEffect, useState } from "react";
 import BlogImg from "../assets/blog-img.png";
 import BlogCard from "../Components/BlogCard";
 import Navbar from "../Components/Navbar.jsx";
-import { Client, Databases, Query } from "appwrite";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Link } from "react-router-dom";
+import { databases } from "../Appwrite/appwriteConfig.js";
 
 function AllBlogs() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const client = new Client()
-    .setEndpoint(`${import.meta.env.VITE_APPWRITE_ENDPOINT}`)
-    .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`);
-
-  const databases = new Databases(client);
 
   const fetchBlogs = async () => {
     try {
