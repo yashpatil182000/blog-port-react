@@ -31,7 +31,7 @@ function Blog() {
       console.log("Fetching Error: ", error);
     }
   };
-  console.log(blog);
+  // console.log(blog);
 
   useEffect(() => {
     fetchBlog();
