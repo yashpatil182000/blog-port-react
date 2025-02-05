@@ -138,47 +138,43 @@ function EditBlog() {
         <div className="flex justify-center py-12">
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center gap-5 w-[80%]"
+            className="flex flex-col items-center gap-5 w-[90%] md:w-[80%] rounded-lg shadow-md shadow-black/50 bg-white p-3 md:p-14"
           >
-            <div className="w-[80%]">
+            <div className="w-full ">
               <Input
                 name="title"
-                color="black"
                 label="Blog Title"
                 value={formData.title}
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[80%]">
+            <div className="w-full ">
               <Textarea
                 name="description"
-                color="black"
-                className="h-56"
+                className="h-48"
                 label="Blog Description"
                 value={formData.description}
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[80%]">
+            <div className="w-full ">
               <Textarea
                 name="shortDescription"
-                color="black"
-                className="h-56"
+                className="h-48"
                 label="Blog Short Description"
                 value={formData.shortDescription}
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[80%]">
+            <div className="w-full ">
               <Input
                 name="tag"
-                color="black"
                 label="Blog Tag"
                 value={formData.tag}
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[80%] flex flex-col md:flex-row items-center gap-5">
+            <div className="w-full  flex flex-col md:flex-row items-center gap-5">
               <div className="relative">
                 <p className="absolute text-white text-center bottom-0 bg-black/50 w-full py-3 rounded-lg">
                   Current Image
@@ -199,7 +195,7 @@ function EditBlog() {
                 />
               </div>
             </div>
-            <div className="w-[80%] flex justify-center">
+            <div className="w-full  flex justify-center">
               <button
                 type="submit"
                 className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"

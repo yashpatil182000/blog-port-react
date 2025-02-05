@@ -6,6 +6,9 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function AdminDashBoard() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,9 +35,35 @@ function AdminDashBoard() {
     fetchBlogs();
   }, []);
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await databases.deleteDocument(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
+        id
+      );
+      // alert("Blog deleted successfully!");
+      toast("Blog deleted successfully!", {
+        type: "success",
+        autoClose: 3000,
+        position: "bottom-center",
+      });
+      fetchBlogs();
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    }
+  };
+
   return (
     <>
       <AdminNavbar />
+      <ToastContainer />
+
       <div className="py-5">
         <p className="text-3xl md:text-5xl font-semibold text-center">
           Admin Dashboard
@@ -89,7 +118,12 @@ function AdminDashBoard() {
                       </span>
                       Edit
                     </button>
-                    <button className="flex items-center justify-center gap-1 bg-primary px-5 py-1 rounded-lg text-white font-semibold hover:text-black duration-200 me-5">
+                    <button
+                      className="flex items-center justify-center gap-1 bg-primary px-5 py-1 rounded-lg text-white font-semibold hover:text-black duration-200 me-5"
+                      onClick={() => {
+                        handleDelete(blog.$id);
+                      }}
+                    >
                       <span>
                         <RiDeleteBin6Line size={20} />
                       </span>
