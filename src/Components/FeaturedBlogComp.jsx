@@ -12,7 +12,7 @@ function FeaturedBlogComp({ id, date, tag, image, title, description }) {
           <p>{date}</p>
         </div>
         <div className="py-10 md:w-[80%]">
-          <p className="text-5xl font-semibold">{title}</p>
+          <p className="text-3xl md:text-5xl font-semibold">{title}</p>
         </div>
         <div className=" w-full md:w-[80%]">
           <img src={image} className="rounded-3xl" alt="" />

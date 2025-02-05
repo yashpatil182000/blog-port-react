@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AiImg from "../assets/ai.jpg";
 import WomensCricketImg from "../assets/womens-cricket.png";
+import VRBlogImg from "../assets/vr-blog.png";
+
 import BudgetImg from "../assets/budget.png";
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar.jsx";
@@ -104,6 +106,40 @@ function Home() {
             </div>
           </div>
         </Slider>
+      </div>
+
+      <div className="flex justify-center py-12">
+        <div className="w-[85%] relative ">
+          <div className="">
+            <img src={VRBlogImg} alt="" />
+          </div>
+          <div className="lg:absolute -bottom-36 -right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5">
+            <div className="flex gap-5 mb-3">
+              <p className="font-semibold">Developement</p>
+              <p>18-mar-2025</p>
+            </div>
+            <div className="mb-3">
+              <p className="text-2xl font-semibold">
+                How to make a Game look more attractive with New VR & AI
+                Technology
+              </p>
+            </div>
+            <div>
+              <p className="text-sm ">
+                Google has been investing in AI for many years and bringing its
+                benefits to individuals, businesses and communities. Whether
+                it’s publishing state-of-the-art research, building helpful
+                products or developing tools and resources that enable others,
+                we’re committed to making AI accessible to everyone.
+              </p>
+              <Link to={`Featured-blog/004`}>
+                <p className="cursor-pointer text-sm font-semibold px-4 py-1 w-fit rounded-xl bg-primary mt-3">
+                  Read more
+                </p>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
