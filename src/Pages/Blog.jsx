@@ -8,6 +8,8 @@ import BlogComponent from "../Components/BlogComponent";
 import BeatLoader from "react-spinners/BeatLoader";
 import Footer from "../Components/Footer";
 
+import { motion } from "framer-motion";
+
 function Blog() {
   const { id } = useParams();
 
@@ -48,13 +50,13 @@ function Blog() {
         </div>
       )}
       {blog && (
-        <BlogComponent
-          title={blog.title}
-          image={blog.imageURL}
-          description={blog.description}
-          tag={blog.tag}
-          date={new Date(blog.$updatedAt).toLocaleString()}
-        />
+          <BlogComponent
+            title={blog.title}
+            image={blog.imageURL}
+            description={blog.description}
+            tag={blog.tag}
+            date={new Date(blog.$updatedAt).toLocaleString()}
+          />
       )}
 
       <Footer />

@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { databases } from "../Appwrite/appwriteConfig.js";
 import Footer from "../Components/Footer.jsx";
 
+import { motion } from "framer-motion";
+
 function AllBlogs() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -61,13 +63,24 @@ function AllBlogs() {
           blogs.map((blog, index) => {
             return (
               <Link to={`/blog/${blog.$id}`} key={index}>
-                <BlogCard
-                  image={blog.imageURL}
-                  tag={blog.tag}
-                  title={blog.title}
-                  description={blog.shortDescription}
-                  time={new Date(blog.$updatedAt).toLocaleString()}
-                />
+                <motion.div
+                  initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeOut",
+                    delay: index * 0.2,
+                  }}
+                  viewport={{ once: false, amount: 0.1 }}
+                >
+                  <BlogCard
+                    image={blog.imageURL}
+                    tag={blog.tag}
+                    title={blog.title}
+                    description={blog.shortDescription}
+                    time={new Date(blog.$updatedAt).toLocaleString()}
+                  />
+                </motion.div>
               </Link>
             );
           })

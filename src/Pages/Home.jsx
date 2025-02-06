@@ -16,6 +16,8 @@ import { databases } from "../Appwrite/appwriteConfig.js";
 import { Query } from "appwrite";
 import BlogCard from "../Components/BlogCard.jsx";
 
+import { motion } from "framer-motion";
+
 function Home() {
   var settings = {
     infinite: true,
@@ -139,12 +141,18 @@ function Home() {
         </Slider>
       </div>
 
-      <div className="flex justify-center py-12">
-        <div className="w-[85%] relative ">
+      <div className="flex justify-center py-12 ">
+        <div className="w-[85%] relative">
           <div>
             <img src={VRBlogImg} className="rounded-3xl" alt="" />
           </div>
-          <div className="lg:absolute lg:-right-16 lg:-bottom-36 xl:-right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5  shadow-md lg:shadow-lg shadow-gray-600">
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ amount: 0.2 }}
+            className="lg:absolute lg:-right-16 lg:-bottom-36 xl:-right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5  shadow-md lg:shadow-lg shadow-gray-600 "
+          >
             <div className="flex gap-5 mb-3">
               <p className="text-sm mb-2 bg-gray-300 px-3 py-1 rounded-lg text-blue-gray-800 font-semibold">
                 Developement
@@ -171,7 +179,7 @@ function Home() {
                 </p>
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -199,13 +207,24 @@ function Home() {
               blogs.map((blog, index) => {
                 return (
                   <Link to={`/blog/${blog.$id}`} key={index}>
-                    <BlogCard
-                      title={blog.title}
-                      description={blog.shortDescription}
-                      tag={blog.tag}
-                      time={new Date(blog.$updatedAt).toLocaleString()}
-                      image={blog.imageURL}
-                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeOut",
+                        delay: index * 0.2,
+                      }}
+                      viewport={{ once: false, amount: 0.2 }}
+                    >
+                      <BlogCard
+                        title={blog.title}
+                        description={blog.shortDescription}
+                        tag={blog.tag}
+                        time={new Date(blog.$updatedAt).toLocaleString()}
+                        image={blog.imageURL}
+                      />
+                    </motion.div>
                   </Link>
                 );
               })

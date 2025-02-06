@@ -2,26 +2,58 @@ import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { TbLogin2 } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../assets/blog-port-logo.png";
+import { toast, ToastContainer } from "react-toastify";
 
-function Login({ setIsAdmin }) {
+function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (username == "admin" && password == "admin") {
+    if (username == "admin@gmail.com" && password == "admin") {
       navigate("/admin-dashboard");
     } else {
-      alert("Invalid username or password");
+      toast.error("Incorrect Email or Password", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "mt-5",
+      });
     }
+  };
+
+  const handleRegister = () => {
+    toast.info("Registration for new user coming soon!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      className: "mt-5",
+    });
   };
 
   return (
     <>
-      <div className="flex justify-center bg-[url('./assets/hero-bg.png')] bg-cover h-screen">
+      <ToastContainer />
+      <div className="flex flex-col items-center bg-[url('./assets/hero-bg.png')] bg-cover h-screen">
+        <div className="flex gap-2 justify-center items-center bg-white w-fit mt-20 mb-5 px-5 rounded-lg">
+          <img src={Logo} alt="Logo" className="h-12" />
+          <p className="text-2xl md:text-3xl font-bold text-primary">
+            BLOG PORT
+          </p>
+        </div>
+
         <div
-          className="md:w-[30%] h-fit w-[90%] mt-20 p-5 
-        bg-[url('./assets/log-in-bg.jpg')] bg-cover rounded-lg shadow-md shadow-black"
+          className="lg:w-[30%] h-fit w-[90%] md:w-[50%] p-5 
+        bg-gradient-to-br from-white to-gray-500 rounded-lg shadow-md shadow-black"
         >
           <div className="mb-5 flex items-center justify-center gap-1">
             <span>
@@ -62,11 +94,12 @@ function Login({ setIsAdmin }) {
           <div className="justify-center flex my-5">
             <p className="">
               Don't have an account?
-              <Link to={"/register"}>
-                <span className="ms-1 cursor-pointer text-blue-900 underline font-semibold">
-                  Register
-                </span>
-              </Link>
+              <span
+                onClick={handleRegister}
+                className="ms-1 cursor-pointer text-blue-900 underline font-semibold"
+              >
+                Register
+              </span>
             </p>
           </div>
         </div>

@@ -3,6 +3,8 @@ import Navbar from "../Components/Navbar.jsx";
 import AboutImg1 from "../assets/about-1.png";
 import Footer from "../Components/Footer.jsx";
 
+import { motion } from "framer-motion";
+
 function About() {
   return (
     <>
@@ -29,9 +31,15 @@ function About() {
             place.
           </p>
         </div>
-        <div className="w-[90%] lg:w-[80%]">
+        <motion.div
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeIn" }}
+          viewport={{ amount: 0.2 }}
+          className="w-[90%] lg:w-[80%]"
+        >
           <img src={AboutImg1} alt="" />
-        </div>
+        </motion.div>
 
         <div className="w-full bg-white flex flex-col items-center gap-5 py-12">
           <div className="w-[90%] lg:w-[80%]">
@@ -42,7 +50,13 @@ function About() {
               Our blog covers a wide variety of topics to cater to all interests
             </p>
           </div>
-          <div className="w-[90%] lg:w-[80%]">
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeIn" }}
+            viewport={{ amount: 0.2 }}
+            className="w-[90%] lg:w-[80%]"
+          >
             <div className="flex flex-col lg:flex-row items-center justify-center gap-5">
               <div className="bg-[url('src/assets/technology.jpg')] bg-cover md:h-[250px] md:w-[400px] flex items-center p-5 ">
                 <div className="text-center bg-white/60 p-3 ">
@@ -81,7 +95,7 @@ function About() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="w-[90%] lg:w-[80%] py-5">
