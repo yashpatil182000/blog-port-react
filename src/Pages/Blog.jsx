@@ -38,6 +38,7 @@ function Blog() {
 
   useEffect(() => {
     fetchBlog();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -50,13 +51,13 @@ function Blog() {
         </div>
       )}
       {blog && (
-          <BlogComponent
-            title={blog.title}
-            image={blog.imageURL}
-            description={blog.description}
-            tag={blog.tag}
-            date={new Date(blog.$updatedAt).toLocaleString()}
-          />
+        <BlogComponent
+          title={blog.title}
+          image={blog.imageURL}
+          description={blog.description}
+          tag={blog.tag}
+          date={new Date(blog.$updatedAt).toLocaleString()}
+        />
       )}
 
       <Footer />

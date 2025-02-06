@@ -261,6 +261,8 @@ function FeaturedBlog() {
         return null;
       }
     });
+
+    window.scrollTo(0, 0);
   }, []);
 
   return (

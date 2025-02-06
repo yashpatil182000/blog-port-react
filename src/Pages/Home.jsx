@@ -53,12 +53,16 @@ function Home() {
 
   useEffect(() => {
     fetchBlog();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <>
       <Navbar />
-      <div className="px-8 md:px-12 py-5 bg-[url('src/assets/hero-bg.png')]  bg-cover">
+      <div
+        className="px-8 md:px-12 py-5 bg-gradient-to-tr from-[#7C4EE4] via-[#2D1B5E] to-[#000000]
+"
+      >
         <div className="text-center pb-10">
           <p className="text-xl font-bold text-white ">Featured Blogs </p>
         </div>
@@ -147,10 +151,10 @@ function Home() {
             <img src={VRBlogImg} className="rounded-3xl" alt="" />
           </div>
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ amount: 0.2 }}
+            viewport={{ amount: 0.1 }}
             className="lg:absolute lg:-right-16 lg:-bottom-36 xl:-right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5  shadow-md lg:shadow-lg shadow-gray-600 "
           >
             <div className="flex gap-5 mb-3">

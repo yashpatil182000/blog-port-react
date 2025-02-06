@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../Components/Navbar.jsx";
 import AboutImg1 from "../assets/about-1.png";
 import Footer from "../Components/Footer.jsx";
 
+import TechnologyImg from "../assets/technology.jpg";
+import WellBeingImg from "../assets/well-being.jpg";
+import GrowthImg from "../assets/growth.jpg";
+
 import { motion } from "framer-motion";
 
 function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -58,7 +66,10 @@ function About() {
             className="w-[90%] lg:w-[80%]"
           >
             <div className="flex flex-col lg:flex-row items-center justify-center gap-5">
-              <div className="bg-[url('src/assets/technology.jpg')] bg-cover md:h-[250px] md:w-[400px] flex items-center p-5 ">
+              <div
+                className="bg-cover md:h-[250px] md:w-[400px] flex items-center p-5"
+                style={{ backgroundImage: `url(${TechnologyImg})` }}
+              >
                 <div className="text-center bg-white/60 p-3 ">
                   <p className="text-xl font-semibold mb-2">
                     Technology & Innovation
@@ -70,7 +81,10 @@ function About() {
                   </p>
                 </div>
               </div>
-              <div className="bg-[url('src/assets/well-being.jpg')] bg-cover md:h-[250px] md:w-[400px] flex items-center p-5 ">
+              <div
+                className="bg-cover md:h-[250px] md:w-[400px] flex items-center p-5 "
+                style={{ backgroundImage: `url(${WellBeingImg})` }}
+              >
                 <div className="text-center bg-white/60 p-3 ">
                   <p className="text-xl font-semibold mb-2">
                     Lifestyle & Well-being
@@ -82,7 +96,10 @@ function About() {
                   </p>
                 </div>
               </div>
-              <div className="bg-[url('src/assets/growth.jpg')] bg-cover md:h-[250px] md:w-[400px] flex items-center p-5 ">
+              <div
+                className="bg-cover md:h-[250px] md:w-[400px] flex items-center p-5 "
+                style={{ backgroundImage: `url(${GrowthImg})` }}
+              >
                 <div className="text-center bg-white/60 p-3 ">
                   <p className="text-xl font-semibold mb-2">
                     Growth & Productivity
