@@ -30,6 +30,7 @@ function AllBlogs() {
 
   useEffect(() => {
     fetchBlogs();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -65,6 +66,7 @@ function AllBlogs() {
                   tag={blog.tag}
                   title={blog.title}
                   description={blog.shortDescription}
+                  time={new Date(blog.$updatedAt).toLocaleString()}
                 />
               </Link>
             );

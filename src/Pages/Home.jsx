@@ -8,7 +8,7 @@ import VRBlogImg from "../assets/vr-blog.png";
 import BeatLoader from "react-spinners/BeatLoader";
 
 import BudgetImg from "../assets/budget.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar.jsx";
 import Footer from "../Components/Footer.jsx";
 
@@ -30,6 +30,7 @@ function Home() {
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchBlog = async () => {
     try {
@@ -143,19 +144,21 @@ function Home() {
           <div>
             <img src={VRBlogImg} className="rounded-3xl" alt="" />
           </div>
-          <div className="lg:absolute lg:-right-16 lg:-bottom-36 xl:-right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5">
+          <div className="lg:absolute lg:-right-16 lg:-bottom-36 xl:-right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5  shadow-md lg:shadow-lg shadow-gray-600">
             <div className="flex gap-5 mb-3">
-              <p className="font-semibold">Developement</p>
-              <p>18-mar-2025</p>
+              <p className="text-sm mb-2 bg-gray-300 px-3 py-1 rounded-lg text-blue-gray-800 font-semibold">
+                Developement
+              </p>
+              <p className="text-sm text-blue-gray-800">2/5/2025</p>
             </div>
             <div className="mb-3">
-              <p className="text-2xl font-semibold">
+              <p className="text-2xl text-blue-gray-800 font-semibold">
                 How to make a Game look more attractive with New VR & AI
                 Technology
               </p>
             </div>
             <div>
-              <p className="text-sm ">
+              <p className="text-sm text-blue-gray-600 ">
                 Google has been investing in AI for many years and bringing its
                 benefits to individuals, businesses and communities. Whether
                 it’s publishing state-of-the-art research, building helpful
@@ -176,7 +179,12 @@ function Home() {
         <div className="w-[85%]">
           <div className="flex justify-between lg:px-11">
             <p className="text-4xl font-semibold">Our Blogs</p>
-            <button className="outline-none bg-primary text-white md:px-10 px-3 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+            <button
+              className="outline-none bg-primary text-white md:px-10 px-3 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"
+              onClick={() => {
+                navigate("/all-blogs");
+              }}
+            >
               View All
             </button>
           </div>
