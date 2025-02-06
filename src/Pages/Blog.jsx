@@ -6,6 +6,7 @@ import { databases } from "../Appwrite/appwriteConfig";
 import { useParams } from "react-router-dom";
 import BlogComponent from "../Components/BlogComponent";
 import BeatLoader from "react-spinners/BeatLoader";
+import Footer from "../Components/Footer";
 
 function Blog() {
   const { id } = useParams();
@@ -55,6 +56,8 @@ function Blog() {
           date={new Date(blog.$updatedAt).toLocaleString()}
         />
       )}
+
+      <Footer />
     </>
   );
 }

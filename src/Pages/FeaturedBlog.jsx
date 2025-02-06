@@ -6,6 +6,7 @@ import BudgetImg from "../assets/budget.png";
 import FeaturedBlogComp from "../Components/FeaturedBlogComp";
 import VRBlogImg from "../assets/vr-blog.png";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 function FeaturedBlog() {
   const { id } = useParams();
@@ -278,6 +279,8 @@ function FeaturedBlog() {
           Blog is currently not available...!
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }

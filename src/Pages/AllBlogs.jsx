@@ -5,6 +5,7 @@ import Navbar from "../Components/Navbar.jsx";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Link } from "react-router-dom";
 import { databases } from "../Appwrite/appwriteConfig.js";
+import Footer from "../Components/Footer.jsx";
 
 function AllBlogs() {
   const [blogs, setBlogs] = useState([]);
@@ -72,6 +73,8 @@ function AllBlogs() {
           <p>No BLogs to show</p>
         )}
       </div>
+
+      <Footer />
     </>
   );
 }

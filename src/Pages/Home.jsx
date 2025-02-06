@@ -1,15 +1,20 @@
-import React from "react";
-import Featuredpost from "../Components/FeaturedBlogComp";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AiImg from "../assets/ai.jpg";
 import WomensCricketImg from "../assets/womens-cricket.png";
 import VRBlogImg from "../assets/vr-blog.png";
+import BeatLoader from "react-spinners/BeatLoader";
 
 import BudgetImg from "../assets/budget.png";
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar.jsx";
+import Footer from "../Components/Footer.jsx";
+
+import { databases } from "../Appwrite/appwriteConfig.js";
+import { Query } from "appwrite";
+import BlogCard from "../Components/BlogCard.jsx";
 
 function Home() {
   var settings = {
@@ -22,6 +27,31 @@ function Home() {
     cssEase: "linear",
     autoplaySpeed: 3000,
   };
+
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBlog = async () => {
+    try {
+      let response = await databases.listDocuments(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        [Query.limit(3)]
+      );
+
+      if (response?.documents) {
+        setBlogs(response.documents);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Fetching Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlog();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -110,10 +140,10 @@ function Home() {
 
       <div className="flex justify-center py-12">
         <div className="w-[85%] relative ">
-          <div className="">
-            <img src={VRBlogImg} alt="" />
+          <div>
+            <img src={VRBlogImg} className="rounded-3xl" alt="" />
           </div>
-          <div className="lg:absolute -bottom-36 -right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5">
+          <div className="lg:absolute lg:-right-16 lg:-bottom-36 xl:-right-20 bg-white lg:w-[65%] md:p-12 rounded-3xl mt-5 lg:mt-0 md:w-full p-5">
             <div className="flex gap-5 mb-3">
               <p className="font-semibold">Developement</p>
               <p>18-mar-2025</p>
@@ -141,6 +171,46 @@ function Home() {
           </div>
         </div>
       </div>
+
+      <div className="flex justify-center lg:mt-40">
+        <div className="w-[85%]">
+          <div className="flex justify-between lg:px-11">
+            <p className="text-4xl font-semibold">Our Blogs</p>
+            <button className="outline-none bg-primary text-white md:px-10 px-3 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+              View All
+            </button>
+          </div>
+          {loading && (
+            <div className="flex flex-col items-center justify-center my-10">
+              <p className="text-xl font-semibold text-black">Loading Blogs</p>
+              <BeatLoader color="#7C4EE4" size={25} />
+            </div>
+          )}
+          <div className="flex flex-col xl:flex-row items-center justify-center gap-5 py-12 ">
+            {blogs ? (
+              blogs.map((blog, index) => {
+                return (
+                  <Link to={`/blog/${blog.$id}`} key={index}>
+                    <BlogCard
+                      title={blog.title}
+                      description={blog.shortDescription}
+                      tag={blog.tag}
+                      time={new Date(blog.$updatedAt).toLocaleString()}
+                      image={blog.imageURL}
+                    />
+                  </Link>
+                );
+              })
+            ) : (
+              <p className="text-2xl font-semibold text-red-700">
+                Currently Blogs Not available
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <Footer />
     </>
   );
 }
