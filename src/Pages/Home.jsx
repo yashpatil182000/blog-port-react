@@ -6,6 +6,7 @@ import AiImg from "../assets/ai.jpg";
 import WomensCricketImg from "../assets/womens-cricket.png";
 import VRBlogImg from "../assets/vr-blog.png";
 import BeatLoader from "react-spinners/BeatLoader";
+import HeroBG from "../assets/hero-bg.png";
 
 import BudgetImg from "../assets/budget.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -60,8 +61,9 @@ function Home() {
     <>
       <Navbar />
       <div
-        className="px-8 md:px-12 py-5 bg-gradient-to-tr from-[#7C4EE4] via-[#2D1B5E] to-[#000000]
+        className="px-8 md:px-12 py-5 bg-cover
 "
+        style={{ backgroundImage: `url(${HeroBG})` }}
       >
         <div className="text-center pb-10">
           <p className="text-xl font-bold text-white ">Featured Blogs </p>

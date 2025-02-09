@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { TbLogin2 } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
 import { toast, ToastContainer } from "react-toastify";
+import { account } from "../Appwrite/appwriteConfig";
+import { FaArrowLeft } from "react-icons/fa";
+
+import LogInBG from "../assets/log-in-bg.jpg";
 
 function Login() {
-  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username == "admin@gmail.com" && password == "admin") {
+  const handleLogin = async () => {
+    if (email == "admin@gmail.com" && password == "admin") {
       navigate("/admin-dashboard");
     } else {
       toast.error("Incorrect Email or Password", {
@@ -53,7 +57,8 @@ function Login() {
 
         <div
           className="lg:w-[30%] h-fit w-[90%] md:w-[50%] p-5 
-        bg-gradient-to-br from-white to-gray-500 rounded-lg shadow-md shadow-black"
+        rounded-lg shadow-md shadow-black bg-cover"
+          style={{ backgroundImage: `url(${LogInBG})` }}
         >
           <div className="mb-5 flex items-center justify-center gap-1">
             <span>
@@ -68,7 +73,7 @@ function Login() {
               placeholder="Enter Email Here"
               color="black"
               onChange={(e) => {
-                setUsername(e.target.value);
+                setEmail(e.target.value);
               }}
             />
           </div>
@@ -100,6 +105,18 @@ function Login() {
               >
                 Register
               </span>
+            </p>
+          </div>
+          <div className="justify-center flex my-5">
+            <p
+              className="flex items-center gap-2 cursor-pointer text-blue-900 underline font-semibold hover:text-primary"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              {" "}
+              <FaArrowLeft color="" />
+              Back to Home
             </p>
           </div>
         </div>

@@ -11,7 +11,7 @@ const AdminNavbar = () => {
 
   return (
     <nav className="flex px-6 md:px-16 py-3 justify-between items-center shadow-md bg-white">
-      <Link to={"/"}>
+      <Link to={"/admin-dashboard"}>
         <div className="flex gap-2 justify-center items-center">
           <img src={Logo} alt="Logo" className="h-12" />
           <p className="text-2xl md:text-3xl font-bold text-primary">

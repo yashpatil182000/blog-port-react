@@ -13,6 +13,7 @@ import AddBlog from "./Pages/AddBlog.jsx";
 import AdminDashBoard from "./Pages/AdminDashBoard.jsx";
 import Blog from "./Pages/Blog.jsx";
 import EditBlog from "./Pages/EditBlog.jsx";
+// import ProtectedRoute from "./routes/ProtectedRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,10 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/about", element: <About /> },
       { path: `/featured-blog/:id`, element: <FeaturedBlog /> },
-      { path: "/admin-dashboard", element: <AdminDashBoard /> },
+      {
+        path: "/admin-dashboard",
+        element: <AdminDashBoard />,
+      },
       { path: "/add-blog", element: <AddBlog /> },
       { path: `/blog/:id`, element: <Blog /> },
       { path: `/edit-blog/:id`, element: <EditBlog /> },
