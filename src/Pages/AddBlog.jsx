@@ -6,6 +6,9 @@ import { ID } from "appwrite";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 function AddBlog() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
@@ -106,14 +109,22 @@ function AddBlog() {
             />
           </div>
           <div className="mb-5">
-            <Textarea
+            {/* <Textarea
               className="h-56"
               label="Description"
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
-            />
+            /> */}
+            <div className=" mb-28 md:mb-14">
+              <ReactQuill
+                theme="snow"
+                value={description}
+                className="h-56 rounded-lg"
+                onChange={setDescription}
+              />
+            </div>
           </div>
           <div className="mb-5">
             <Textarea

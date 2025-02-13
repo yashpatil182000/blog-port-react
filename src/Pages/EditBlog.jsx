@@ -9,6 +9,9 @@ import { Input, Textarea } from "@material-tailwind/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 function EditBlog() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -156,6 +159,18 @@ function EditBlog() {
                 value={formData.description}
                 onChange={handleChange}
               />
+              {/* <div className=" mb-28 md:mb-14">
+                <ReactQuill
+                  className="h-48"
+                  label="Blog Description"
+                  value={formData.description}
+                  onChange={(content) =>
+                    handleChange({
+                      target: { name: "description", value: content },
+                    })
+                  }
+                />
+              </div> */}
             </div>
             <div className="w-full ">
               <Textarea
