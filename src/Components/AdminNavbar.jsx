@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
+import { useDispatch } from "react-redux";
+import { account } from "../Appwrite/appwriteConfig";
+import { logout } from "../features/authSlice";
 
 const AdminNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleHamburger = () => {
     setIsMenuOpen((prev) => !prev);
@@ -32,8 +37,20 @@ const AdminNavbar = () => {
               Add Blog
             </li>
           </Link>
+          <Link to={"/add-admin"}>
+            <li className="cursor-pointer text-md  hover:text-primary">
+              Add Admin
+            </li>
+          </Link>
         </ul>
-        <Link to={"/"}>
+        <Link
+          onClick={async () => {
+            await account.deleteSession("current");
+            dispatch(logout());
+
+            navigate("/login");
+          }}
+        >
           <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
             Log Out
           </button>
@@ -81,6 +98,11 @@ const AdminNavbar = () => {
             }}
           >
             <li className="cursor-pointer  hover:text-primary">Add Blog</li>
+          </Link>
+          <Link to={"/add-admin"}>
+            <li className="cursor-pointer text-md  hover:text-primary">
+              Add Admin
+            </li>
           </Link>
         </ul>
         <Link

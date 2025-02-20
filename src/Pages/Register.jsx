@@ -60,7 +60,7 @@ function Register() {
     name: "",
     email: "",
     password: "",
-    role: "admin",
+    role: "user",
   });
   const navigate = useNavigate();
 

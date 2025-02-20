@@ -54,6 +54,10 @@ function Login() {
         navigate("/");
       }
     } catch (error) {
+      toast.error("Invalid Credentials!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       console.error("Login Error:", error);
     }
   };
@@ -123,15 +127,6 @@ function Login() {
               onClick={handleLogin}
             >
               Login
-            </button>
-            <button
-              className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"
-              onClick={async () => {
-                await account.deleteSession("current");
-                dispatch(logout());
-              }}
-            >
-              Logout
             </button>
           </div>
           <div className="justify-center flex my-5">

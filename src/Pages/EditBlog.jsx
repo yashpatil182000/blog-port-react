@@ -5,24 +5,48 @@ import { Query } from "appwrite";
 import AdminNavbar from "../Components/AdminNavbar";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Input, Textarea } from "@material-tailwind/react";
-
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Quill from "quill";
 
 function EditBlog() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
     shortDescription: "",
     tag: "",
     imageURL: "",
   });
+  const [description, setDescription] = useState(""); // Separate state for ReactQuill
   const [newImage, setNewImage] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // react quill custom styles
+  const Size = Quill.import("formats/size");
+  Size.whitelist = ["small", "normal", "large", "huge"];
+  Quill.register(Size, true);
+
+  const modules = {
+    toolbar: [
+      [{ size: ["small", "normal", "large", "huge"] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+      ["clean"],
+    ],
+  };
+
+  const formats = [
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "list",
+    "bullet",
+    "link",
+  ];
 
   const fetchBlog = async () => {
     try {
@@ -34,13 +58,14 @@ function EditBlog() {
 
       if (response?.documents?.length) {
         const blog = response.documents[0];
+
         setFormData({
-          title: blog.title,
-          description: blog.description,
-          shortDescription: blog.shortDescription,
-          tag: blog.tag,
-          imageURL: blog.imageURL,
+          title: blog.title || "",
+          shortDescription: blog.shortDescription || "",
+          tag: blog.tag || "",
+          imageURL: blog.imageURL || "",
         });
+        setDescription(blog.description || "");
       }
       setLoading(false);
     } catch (error) {
@@ -57,34 +82,28 @@ function EditBlog() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle image selection
   const handleImageChange = (e) => {
-    setNewImage(e.target.files[0]); // Store new image file
+    setNewImage(e.target.files[0]);
   };
 
-  // Upload new image to Appwrite Storage
   const uploadImage = async () => {
-    if (!newImage) return formData.imageURL; // Keep the old image if no new one is selected
-
+    if (!newImage) return formData.imageURL;
     try {
       const file = await storage.createFile(
         import.meta.env.VITE_APPWRITE_BUCKET_ID,
         "unique()",
         newImage
       );
-
-      // Get the preview URL from Appwrite
       return storage.getFilePreview(
         import.meta.env.VITE_APPWRITE_BUCKET_ID,
         file.$id
       );
     } catch (error) {
       console.error("Error uploading image:", error);
-      return formData.imageURL; // Return the old image URL if upload fails
+      return formData.imageURL;
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -92,42 +111,33 @@ function EditBlog() {
       autoClose: false,
       position: "bottom-center",
     });
-
     const newImageUrl = await uploadImage();
+
     try {
       await databases.updateDocument(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID,
         id,
-        { ...formData, imageURL: newImageUrl }
+        { ...formData, description, imageURL: newImageUrl }
       );
-
       toast.update(toastId, {
         render: "Blog updated successfully!",
         type: "success",
         autoClose: 3000,
-        position: "bottom-center",
       });
       fetchBlog();
     } catch (error) {
-      toast.error("Failed to Update Blog", {
-        type: "error",
-        autoClose: 3000,
-        position: "bottom-center",
-      });
+      toast.error("Failed to Update Blog", { type: "error", autoClose: 3000 });
       console.error("Error updating document:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {}, [handleSubmit, handleImageChange]);
-
   return (
     <>
       <AdminNavbar />
       <ToastContainer />
-
       <div className="py-5">
         <p className="text-xl md:text-3xl font-semibold text-center">
           Manage Blog
@@ -141,55 +151,34 @@ function EditBlog() {
         <div className="flex justify-center py-12">
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center gap-5 w-[90%] md:w-[80%] rounded-lg shadow-md shadow-black/50 bg-white p-3 md:p-14"
+            className="flex flex-col items-center gap-5 w-[90%] md:w-[80%] rounded-lg shadow-md bg-white p-3 md:p-14"
           >
-            <div className="w-full ">
-              <Input
-                name="title"
-                label="Blog Title"
-                value={formData.title}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="w-full ">
-              <Textarea
-                name="description"
-                className="h-48"
-                label="Blog Description"
-                value={formData.description}
-                onChange={handleChange}
-              />
-              {/* <div className=" mb-28 md:mb-14">
-                <ReactQuill
-                  className="h-48"
-                  label="Blog Description"
-                  value={formData.description}
-                  onChange={(content) =>
-                    handleChange({
-                      target: { name: "description", value: content },
-                    })
-                  }
-                />
-              </div> */}
-            </div>
-            <div className="w-full ">
-              <Textarea
-                name="shortDescription"
-                className="h-48"
-                label="Blog Short Description"
-                value={formData.shortDescription}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="w-full ">
-              <Input
-                name="tag"
-                label="Blog Tag"
-                value={formData.tag}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="w-full  flex flex-col md:flex-row items-center gap-5">
+            <Input
+              name="title"
+              label="Blog Title"
+              value={formData.title}
+              onChange={handleChange}
+            />
+            <ReactQuill
+              className="h-48 w-full mb-14"
+              value={description}
+              onChange={setDescription}
+              modules={modules}
+              formats={formats}
+            />
+            <Textarea
+              name="shortDescription"
+              label="Blog Short Description"
+              value={formData.shortDescription}
+              onChange={handleChange}
+            />
+            <Input
+              name="tag"
+              label="Blog Tag"
+              value={formData.tag}
+              onChange={handleChange}
+            />
+            <div className="w-full flex flex-col md:flex-row items-center gap-5">
               <div className="relative">
                 <p className="absolute text-white text-center bottom-0 bg-black/50 w-full py-3 rounded-lg">
                   Current Image
@@ -200,24 +189,18 @@ function EditBlog() {
                   alt="Blog"
                 />
               </div>
-              <div>
-                <Input
-                  name="image"
-                  id="uploader"
-                  type="file"
-                  label="Upload New Image"
-                  onChange={handleImageChange}
-                />
-              </div>
+              <Input
+                type="file"
+                label="Upload New Image"
+                onChange={handleImageChange}
+              />
             </div>
-            <div className="w-full  flex justify-center">
-              <button
-                type="submit"
-                className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"
-              >
-                {loading ? "Updating..." : "Update"}
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="bg-primary text-white px-6 py-1 font-semibold rounded-lg hover:bg-white hover:border hover:text-primary duration-300"
+            >
+              {loading ? "Updating..." : "Update"}
+            </button>
           </form>
         </div>
       </div>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
 import { useSelector } from "react-redux";
+import ProfileMenu from "./ProfileMenu";
+import { toast, ToastContainer } from "react-toastify";
 
 const Navbar = () => {
   const userStatus = useSelector((state) => state.auth.status);
@@ -25,7 +27,7 @@ const Navbar = () => {
       </Link>
 
       <div className="hidden md:flex gap-5 items-center">
-        <ul className="flex gap-5">
+        <ul className="flex items-center gap-5">
           <Link to={"/"}>
             <li className="cursor-pointer text-md  hover:text-primary">Home</li>
           </Link>
@@ -40,16 +42,17 @@ const Navbar = () => {
             </li>
           </Link>
           {userStatus ? (
-            <li className="cursor-pointer text-md  hover:text-primary">
-              {userData.name}
-            </li>
-          ) : null}
+            <span>
+              <ProfileMenu />
+            </span>
+          ) : (
+            <Link to={"/login"}>
+              <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+                Login
+              </button>
+            </Link>
+          )}
         </ul>
-        <Link to={"/login"}>
-          <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
-            Login
-          </button>
-        </Link>
       </div>
 
       <button
@@ -106,16 +109,22 @@ const Navbar = () => {
             <li className="cursor-pointer  hover:text-primary">About</li>
           </Link>
         </ul>
-        <Link
-          to={"/login"}
-          onClick={() => {
-            setIsMenuOpen(false);
-          }}
-        >
-          <button className="outline-none bg-primary text-white px-10 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
-            Login
-          </button>
-        </Link>
+        {userStatus ? (
+          <span>
+            <ProfileMenu />
+          </span>
+        ) : (
+          <Link
+            to={"/login"}
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </nav>
   );

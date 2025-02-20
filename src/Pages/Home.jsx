@@ -7,6 +7,7 @@ import WomensCricketImg from "../assets/womens-cricket.png";
 import VRBlogImg from "../assets/vr-blog.png";
 import BeatLoader from "react-spinners/BeatLoader";
 import HeroBG from "../assets/hero-bg.png";
+import { toast, ToastContainer } from "react-toastify";
 
 import BudgetImg from "../assets/budget.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -31,9 +32,16 @@ function Home() {
     cssEase: "linear",
     autoplaySpeed: 3000,
   };
-
   const userData = useSelector((state) => state.auth.userData);
   console.log("user from store: ", userData);
+  useEffect(() => {
+    if (userData) {
+      toast.success("User log in successful!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  }, []);
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,6 +71,7 @@ function Home() {
 
   return (
     <>
+      <ToastContainer />
       <Navbar />
       <div
         className="px-8 md:px-12 py-5 bg-cover

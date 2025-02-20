@@ -11,18 +11,22 @@ import "react-quill/dist/quill.snow.css";
 import Quill from "quill";
 
 import { useSelector, useDispatch } from "react-redux";
+import Navbar from "../Components/Navbar";
 
-function AddBlog() {
+function UserAddBlog() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [shortDescription, setShortDescription] = useState();
   const [tag, setTag] = useState();
+  const [userID, setUserID] = useState();
   const [loading, setLoading] = useState(false);
 
   const userData = useSelector((state) => state.auth.userData);
-  const userID = userData.$id;
-  console.log("USER DATA ::", userData);
-  console.log("USER ID ::", userID);
+  useEffect(() => {
+    if (userData) {
+      setUserID(userData.$id);
+    }
+  }, [userData]);
 
   // react quill custom styles
   const Size = Quill.import("formats/size");
@@ -125,11 +129,11 @@ function AddBlog() {
     }
   };
 
-  useEffect(() => {}, [handleAddBlog]);
+  // useEffect(() => {}, [handleAddBlog]);
 
   return (
     <>
-      <AdminNavbar />
+      <Navbar />
       <ToastContainer />
 
       <div className="py-5">
@@ -212,4 +216,4 @@ function AddBlog() {
   );
 }
 
-export default AddBlog;
+export default UserAddBlog;
