@@ -18,7 +18,7 @@ function AdminDashBoard() {
     try {
       let responce = await databases.listDocuments(
         `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`
+        `${import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID}`
       );
 
       if (responce && responce.documents) {
@@ -44,7 +44,7 @@ function AdminDashBoard() {
     try {
       await databases.deleteDocument(
         `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
+        `${import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID}`,
         id
       );
       // alert("Blog deleted successfully!");

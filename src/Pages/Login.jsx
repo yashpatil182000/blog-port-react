@@ -4,44 +4,73 @@ import { TbLogin2 } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
 import { toast, ToastContainer } from "react-toastify";
-import { account } from "../Appwrite/appwriteConfig";
+import { account, databases } from "../Appwrite/appwriteConfig";
 import { FaArrowLeft } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../features/authSlice";
+import { Query } from "appwrite";
 
 import LogInBG from "../assets/log-in-bg.jpg";
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [userData, setUserData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    if (email == "admin@gmail.com" && password == "admin") {
-      navigate("/admin-dashboard");
-    } else {
-      toast.error("Incorrect Email or Password", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "mt-5",
-      });
+    try {
+      // Create a session for authentication
+      await account.createEmailPasswordSession(
+        userData.email,
+        userData.password
+      );
+
+      // Fetch user data from database
+      const response = await databases.listDocuments(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_USER_COLLECTION_ID}`,
+        [Query.equal("email", userData.email)]
+      );
+
+      if (response.documents.length === 0) {
+        toast.error("User not found!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      const loggedInUser = response.documents[0];
+
+      console.log("loggedInUser", loggedInUser);
+
+      // Dispatch user data to Redux
+      dispatch(login(loggedInUser));
+
+      // Redirect based on role
+      if (loggedInUser.role === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
     }
   };
 
   const handleRegister = () => {
-    toast.info("Registration for new user coming soon!", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      className: "mt-5",
-    });
+    // toast.info("Registration for new user coming soon!", {
+    //   position: "top-center",
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   className: "mt-5",
+    // });
+
+    navigate("/register");
   };
 
   return (
@@ -73,18 +102,18 @@ function Login() {
               placeholder="Enter Email Here"
               color="black"
               onChange={(e) => {
-                setEmail(e.target.value);
+                setUserData({ ...userData, email: e.target.value });
               }}
             />
           </div>
           <div className="mb-5">
             <Input
-              type="password"
+              type="text"
               label="Password"
               placeholder="Enter Password Here"
               color="black"
               onChange={(e) => {
-                setPassword(e.target.value);
+                setUserData({ ...userData, password: e.target.value });
               }}
             />
           </div>
@@ -94,6 +123,15 @@ function Login() {
               onClick={handleLogin}
             >
               Login
+            </button>
+            <button
+              className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"
+              onClick={async () => {
+                await account.deleteSession("current");
+                dispatch(logout());
+              }}
+            >
+              Logout
             </button>
           </div>
           <div className="justify-center flex my-5">

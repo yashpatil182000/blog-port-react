@@ -16,6 +16,7 @@ import Footer from "../Components/Footer.jsx";
 import { databases } from "../Appwrite/appwriteConfig.js";
 import { Query } from "appwrite";
 import BlogCard from "../Components/BlogCard.jsx";
+import { useSelector, useDispatch } from "react-redux";
 
 import { motion } from "framer-motion";
 
@@ -31,6 +32,9 @@ function Home() {
     autoplaySpeed: 3000,
   };
 
+  const userData = useSelector((state) => state.auth.userData);
+  console.log("user from store: ", userData);
+
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -39,7 +43,7 @@ function Home() {
     try {
       let response = await databases.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID,
         [Query.limit(3)]
       );
 

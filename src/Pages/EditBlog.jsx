@@ -28,7 +28,7 @@ function EditBlog() {
     try {
       let response = await databases.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID,
         [Query.equal("$id", id)]
       );
 
@@ -97,7 +97,7 @@ function EditBlog() {
     try {
       await databases.updateDocument(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID,
         id,
         { ...formData, imageURL: newImageUrl }
       );

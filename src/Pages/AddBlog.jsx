@@ -53,7 +53,7 @@ function AddBlog() {
       if (title && description && tag) {
         const uploadDoc = await databases.createDocument(
           `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-          `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
+          `${import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID}`,
           ID.unique(),
           { title, description, shortDescription, tag, imageURL: fileUrl }
         );

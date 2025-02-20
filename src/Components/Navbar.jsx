@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/blog-port-logo.png";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const userStatus = useSelector((state) => state.auth.status);
+  const userData = useSelector((state) => state.auth.userData);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleHamburger = () => {
@@ -35,6 +39,11 @@ const Navbar = () => {
               About
             </li>
           </Link>
+          {userStatus ? (
+            <li className="cursor-pointer text-md  hover:text-primary">
+              {userData.name}
+            </li>
+          ) : null}
         </ul>
         <Link to={"/login"}>
           <button className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300">
