@@ -1,20 +1,24 @@
 # 📝 Blog App (React + Appwrite)
 
-Blog Port is a blogging platform built using **ReactJS** and **Appwrite**. It allows an admin to manage and publish blogs, while regular users can browse and read blog posts.
+Blog Port is a blogging platform built using **ReactJS** and **Appwrite**. It allows users to register, log in, and manage their own blogs. Admins have full control over all blogs, including user management, and can also add other admins.
 
 ## 🚀 Features
 
-- 🔑 Admin login/logout
-- ✍️ Blog creation, editing, and deletion (Admin only)
+- 🔑 User registration and login
+- ✍️ Users can create, edit, and delete their own blogs
+- 🛠️ Admin can manage all blogs, including user blogs
+- 👤 Admin can add another admin
+- 🔐 Role-based authentication for users and admins
 - 📖 Users can read and browse blogs
 - 📱 Responsive Design – Optimized for both desktop and mobile devices.
 - 🎭 Smooth animations using **Framer Motion**
 - 🔔 Toast notifications using **React-Toastify**
 - 🌐 Deployed on Netlify
+- ⚛️ State management using **Redux Toolkit**
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** ReactJS, Tailwind CSS, Framer Motion, React-Toastify
+- **Frontend:** ReactJS, Tailwind CSS, Framer Motion, React-Toastify, Redux Toolkit
 - **Backend & Database:** Appwrite
 - **Deployment:** Netlify
 
