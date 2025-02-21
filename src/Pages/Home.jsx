@@ -33,7 +33,7 @@ function Home() {
     autoplaySpeed: 3000,
   };
   const userData = useSelector((state) => state.auth.userData);
-  console.log("user from store: ", userData);
+  // console.log("user from store: ", userData);
   useEffect(() => {
     if (userData) {
       toast.success("User log in successful!", {

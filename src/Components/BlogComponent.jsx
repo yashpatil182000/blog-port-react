@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-function BlogComponent({ date, tag, image, title, description }) {
+function BlogComponent({ date, tag, image, title, description, author }) {
   return (
     <>
       <div className="px-6 md:px-16 py-12 flex flex-col items-center justify-center">
@@ -11,6 +11,10 @@ function BlogComponent({ date, tag, image, title, description }) {
             {tag}
           </p>
           <p>{date}</p>
+        </div>
+        <div className="flex items-center text-start gap-2 md:w-[80%] mt-5">
+          <p className="mt-1">Posted By :</p>
+          <p className="font-bold text-xl">{author}</p>
         </div>
         <div className="py-10 md:w-[80%]">
           <p className="text-5xl font-semibold">{title}</p>

@@ -107,7 +107,9 @@ function AdminDashBoard() {
                     </p>
                     <p className="text-sm md:text-md font-semibold mt-3">
                       Author :{" "}
-                      <span className="text-md font-normal">{blog.author}</span>
+                      <span className="text-md font-normal">
+                        {blog.author ? blog.author : "Anonymous User"}
+                      </span>
                     </p>
                   </div>
                   <div className="xl:w-[20%] flex justify-center my-5">

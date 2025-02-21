@@ -19,7 +19,7 @@ function Layout() {
           return;
         }
 
-        console.log("Auth User:", authUser);
+        // console.log("Auth User:", authUser);
 
         const response = await databases.listDocuments(
           `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,

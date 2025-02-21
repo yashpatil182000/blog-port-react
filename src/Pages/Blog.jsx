@@ -56,6 +56,7 @@ function Blog() {
           image={blog.imageURL}
           description={blog.description}
           tag={blog.tag}
+          author={blog.author}
           date={new Date(blog.$updatedAt).toLocaleString()}
         />
       )}
