@@ -79,6 +79,7 @@ function AllBlogs() {
                     title={blog.title}
                     description={blog.shortDescription}
                     time={new Date(blog.$updatedAt).toLocaleString()}
+                    author={blog.author}
                   />
                 </motion.div>
               </Link>

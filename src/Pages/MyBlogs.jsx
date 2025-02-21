@@ -1,14 +1,147 @@
-import React from "react";
 import Navbar from "../Components/Navbar";
 import { useSelector } from "react-redux";
 
+import React, { useState, useEffect } from "react";
+import { databases } from "../Appwrite/appwriteConfig";
+import BeatLoader from "react-spinners/BeatLoader";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Query } from "appwrite";
+
 function MyBlogs() {
   const userData = useSelector((state) => state.auth.userData);
+
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchBlogs = async () => {
+    try {
+      let responce = await databases.listDocuments(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID}`,
+        [Query.equal("userID", userData.$id)]
+      );
+
+      if (responce && responce.documents) {
+        setBlogs(responce.documents);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("Fetching Error: ", error);
+    }
+  };
+  // console.log(blogs);
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await databases.deleteDocument(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_BLOG_COLLECTION_ID}`,
+        id
+      );
+      // alert("Blog deleted successfully!");
+      toast("Blog deleted successfully!", {
+        type: "success",
+        autoClose: 3000,
+        position: "bottom-center",
+      });
+      fetchBlogs();
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    }
+  };
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <div className="py-5">
         <p className="text-4xl font-semibold text-center">My Blogs</p>
+      </div>
+      {loading && (
+        <div className="flex flex-col items-center justify-center my-10">
+          <p className="text-xl font-semibold text-black">Loading Blogs</p>
+          <BeatLoader color="#7C4EE4" size={25} />
+        </div>
+      )}
+      <div className="flex flex-col items-center gap-6 lg:gap-14 lg:py-5">
+        <div className="w-[80%]">
+          <p className="text-xl text-center md:text-2xl">
+            Total Blogs Published:{" "}
+            <span className="text-2xl font-bold">{blogs.length}</span>
+          </p>
+        </div>
+        <div className="w-[86%] md:w-[95%] lg:w-[90%] xl:w-[85%]">
+          {blogs ? (
+            blogs.map((blog, index) => {
+              return (
+                <div
+                  className="flex flex-col md:flex-row items-center  bg-white mb-6 rounded-2xl overflow-hidden shadow-md shadow-black/40"
+                  key={index}
+                >
+                  <div className="w-full md:w-[25%]">
+                    <img
+                      src={blog.imageURL}
+                      className="w-full md:w-60"
+                      alt=""
+                    />
+                  </div>
+                  <div className="w-full md:w-[55%] py-2 md:py-0 px-3 md:px-5 ">
+                    <p className="lg:text-2xl font-semibold">{blog.title}</p>
+                    <p className="text-sm md:text-md font-semibold mt-3">
+                      Last Updated :{" "}
+                      <span className="text-md font-normal">
+                        {new Date(blog.$updatedAt).toLocaleString()}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="xl:w-[20%] flex justify-center my-5">
+                    <button
+                      className="flex items-center justify-center gap-1 bg-primary px-5 py-1 rounded-lg text-white font-semibold hover:text-black duration-200 me-5"
+                      onClick={() => {
+                        navigate(`/user-edit-blog/${blog.$id}`);
+                      }}
+                    >
+                      <span>
+                        <MdOutlineModeEdit size={20} />
+                      </span>
+                      Edit
+                    </button>
+                    <button
+                      className="flex items-center justify-center gap-1 bg-primary px-5 py-1 rounded-lg text-white font-semibold hover:text-black duration-200 me-5"
+                      onClick={() => {
+                        handleDelete(blog.$id);
+                      }}
+                    >
+                      <span>
+                        <RiDeleteBin6Line size={20} />
+                      </span>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="flex flex-col items-center justify-center my-10">
+              <p className="text-xl font-semibold text-black">Loading Blogs</p>
+              <BeatLoader color="#7C4EE4" size={25} />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

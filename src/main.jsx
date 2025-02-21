@@ -19,6 +19,7 @@ import { Provider } from "react-redux";
 import AddAdmin from "./Pages/AddAdmin.jsx";
 import UserAddBlog from "./Pages/UserAddBlog.jsx";
 import MyBlogs from "./Pages/MyBlogs.jsx";
+import UserEditBlog from "./Pages/UserEditBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: `/featured-blog/:id`, element: <FeaturedBlog /> },
       { path: `/user-add-blog`, element: <UserAddBlog /> },
+      { path: `/user-edit-blog/:id`, element: <UserEditBlog /> },
       { path: `/my-blogs`, element: <MyBlogs /> },
       {
         path: "/admin-dashboard",

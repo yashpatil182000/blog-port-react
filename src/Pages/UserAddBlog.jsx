@@ -19,12 +19,14 @@ function UserAddBlog() {
   const [shortDescription, setShortDescription] = useState();
   const [tag, setTag] = useState();
   const [userID, setUserID] = useState();
+  const [author, setAuthor] = useState();
   const [loading, setLoading] = useState(false);
 
   const userData = useSelector((state) => state.auth.userData);
   useEffect(() => {
     if (userData) {
       setUserID(userData.$id);
+      setAuthor(userData.name);
     }
   }, [userData]);
 
@@ -98,6 +100,7 @@ function UserAddBlog() {
             shortDescription,
             tag,
             userID,
+            author,
             imageURL: fileUrl,
           }
         );

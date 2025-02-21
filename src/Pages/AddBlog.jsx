@@ -21,6 +21,7 @@ function AddBlog() {
 
   const userData = useSelector((state) => state.auth.userData);
   const userID = userData.$id;
+  const author = userData.name;
   console.log("USER DATA ::", userData);
   console.log("USER ID ::", userID);
 
@@ -94,6 +95,7 @@ function AddBlog() {
             shortDescription,
             tag,
             userID,
+            author,
             imageURL: fileUrl,
           }
         );

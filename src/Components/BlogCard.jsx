@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-export function BlogCard({ image, tag, time, title, description }) {
+export function BlogCard({ image, tag, time, title, description, author }) {
   let trimmedDesc = description.split(" ").slice(0, 20).join(" ");
   // let trimmedTitle = title.split(" ").slice(0, 8).join(" ");
   return (
@@ -50,6 +50,12 @@ export function BlogCard({ image, tag, time, title, description }) {
             />
           </svg>
         </span>
+        <div className="md:text-end w-full mt-2">
+          Posted By -
+          <span className="font-bold ms-2 capitalize text-black md:text-lg">
+            {author ? author : "Anonymous User"}
+          </span>
+        </div>
       </CardBody>
     </Card>
   );
