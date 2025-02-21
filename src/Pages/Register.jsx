@@ -155,6 +155,7 @@ function Register() {
           <div className="mb-5">
             <Input
               label="Password"
+              type="password"
               placeholder="Enter Password Here"
               color="black"
               name="password"
