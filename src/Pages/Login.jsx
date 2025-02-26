@@ -18,19 +18,17 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Regex for email & password validation
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  // Handle input change and clear errors dynamically
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
 
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "", // Clear error for the specific field
+      [name]: "",
     }));
   };
 
@@ -122,7 +120,6 @@ function Login() {
             <p className="text-3xl font-semibold">LOG IN</p>
           </div>
 
-          {/* Email Input */}
           <div className="mb-5">
             <Input
               name="email"
@@ -137,7 +134,6 @@ function Login() {
             )}
           </div>
 
-          {/* Password Input */}
           <div className="mb-5">
             <Input
               name="password"
@@ -153,7 +149,6 @@ function Login() {
             )}
           </div>
 
-          {/* Login Button */}
           <div className="justify-center flex">
             <button
               className="outline-none bg-primary text-white px-6 py-1 text-md font-semibold rounded-lg hover:bg-white hover:border border-primary hover:text-primary duration-300"
@@ -163,7 +158,6 @@ function Login() {
             </button>
           </div>
 
-          {/* Register Link */}
           <div className="justify-center flex my-5">
             <p className="">
               Don't have an account?
@@ -175,10 +169,9 @@ function Login() {
             </p>
           </div>
 
-          {/* Back to Home */}
           <div className="justify-center flex my-5">
             <p
-              className="flex items-center gap-2 cursor-pointer text-blue-900 underline font-semibold hover:text-primary"
+              className="flex items-center gap-2 cursor-pointer text-blue-900 underline font-semibold hover:text-primary text-xs"
               onClick={() => navigate("/")}
             >
               <FaArrowLeft />

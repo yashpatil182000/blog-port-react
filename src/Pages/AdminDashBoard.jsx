@@ -29,7 +29,7 @@ function AdminDashBoard() {
       console.log("Fetching Error: ", error);
     }
   };
-  // console.log(blogs);
+  console.log(blogs);
 
   useEffect(() => {
     fetchBlogs();

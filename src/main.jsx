@@ -20,6 +20,7 @@ import AddAdmin from "./Pages/AddAdmin.jsx";
 import UserAddBlog from "./Pages/UserAddBlog.jsx";
 import MyBlogs from "./Pages/MyBlogs.jsx";
 import UserEditBlog from "./Pages/UserEditBlog.jsx";
+import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,18 +32,65 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/about", element: <About /> },
+      { path: `/blog/:id`, element: <Blog /> },
+
       { path: `/featured-blog/:id`, element: <FeaturedBlog /> },
-      { path: `/user-add-blog`, element: <UserAddBlog /> },
-      { path: `/user-edit-blog/:id`, element: <UserEditBlog /> },
-      { path: `/my-blogs`, element: <MyBlogs /> },
+      {
+        path: `/user-add-blog`,
+        element: (
+          <ProtectedRoutes allowedRoles="user">
+            <UserAddBlog />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: `/user-edit-blog/:id`,
+        element: (
+          <ProtectedRoutes allowedRoles="user">
+            <UserEditBlog />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: `/my-blogs`,
+        element: (
+          <ProtectedRoutes allowedRoles="user">
+            <MyBlogs />
+          </ProtectedRoutes>
+        ),
+      },
       {
         path: "/admin-dashboard",
-        element: <AdminDashBoard />,
+        element: (
+          <ProtectedRoutes allowedRoles="admin">
+            <AdminDashBoard />
+          </ProtectedRoutes>
+        ),
       },
-      { path: "/add-blog", element: <AddBlog /> },
-      { path: "/add-admin", element: <AddAdmin /> },
-      { path: `/blog/:id`, element: <Blog /> },
-      { path: `/edit-blog/:id`, element: <EditBlog /> },
+      {
+        path: "/add-blog",
+        element: (
+          <ProtectedRoutes allowedRoles="admin">
+            <AddBlog />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/add-admin",
+        element: (
+          <ProtectedRoutes allowedRoles="admin">
+            <AddAdmin />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: `/edit-blog/:id`,
+        element: (
+          <ProtectedRoutes allowedRoles="admin">
+            <EditBlog />
+          </ProtectedRoutes>
+        ),
+      },
     ],
   },
 ]);
