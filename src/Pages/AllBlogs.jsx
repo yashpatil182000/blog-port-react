@@ -74,7 +74,7 @@ function AllBlogs() {
                   viewport={{ once: false, amount: 0.1 }}
                 >
                   <BlogCard
-                    image={blog.imageURL}
+                    image={blog.imageURL.replace("/preview", "/view")}
                     tag={blog.tag}
                     title={blog.title}
                     description={blog.shortDescription}

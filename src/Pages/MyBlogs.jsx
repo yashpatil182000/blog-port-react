@@ -94,7 +94,7 @@ function MyBlogs() {
                 >
                   <div className="w-full md:w-[25%]">
                     <img
-                      src={blog.imageURL}
+                      src={blog.imageURL.replace("/preview", "/view")}
                       className="w-full md:w-60"
                       alt=""
                     />

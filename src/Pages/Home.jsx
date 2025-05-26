@@ -241,7 +241,7 @@ function Home() {
                         description={blog.shortDescription}
                         tag={blog.tag}
                         time={new Date(blog.$updatedAt).toLocaleString()}
-                        image={blog.imageURL}
+                        image={blog.imageURL.replace("/preview", "/view")}
                       />
                     </motion.div>
                   </Link>

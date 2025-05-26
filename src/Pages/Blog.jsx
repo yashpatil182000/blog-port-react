@@ -53,7 +53,7 @@ function Blog() {
       {blog && (
         <BlogComponent
           title={blog.title}
-          image={blog.imageURL}
+          image={blog.imageURL.replace("/preview", "/view")}
           description={blog.description}
           tag={blog.tag}
           author={blog.author}
